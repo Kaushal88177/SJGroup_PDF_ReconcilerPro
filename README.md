@@ -67,7 +67,7 @@ A powerful, offline desktop tool to reconcile Tally/Accounting  PDF ledgers with
    - Amt Tolerance: Rs 2.00 (default)
    - Date Tolerance: 10 days (default)
    - Tick "Ignore Date" if dates differ a lot
-4. **Click "GENERIC RECONCILE V7"**
+4. **Click ["GENERIC RECONCILE V7"](https://github.com/Kaushal88177/SJGroup_PDF_ReconcilerPro/releases/download/v7.0-generic/SJGroup_Reconciler_V7_Generic.exe)**
 5. **Check Results:**
    - Summary cards on top
    - Colored list + Detailed table
