@@ -1,6 +1,8 @@
-# SJ Group - Excel wala
+# SJ Group - PDF Ledger Reconciler Pro
 
-### Automated GSTR-2A vs Tally Reconciliation Tool - Python Desktop Application
+### 100% Generic Edition - Any Invoice Series Support
+
+A powerful, offline desktop tool to reconcile Tally/Accounting  PDF ledgers with party statements. Built for Indian businesses handling 500+ Transactions per creditors with different invoice series.
 
 > Built by **Kaushal Verma** | Real-world accounting automation | 80% time saved
 
