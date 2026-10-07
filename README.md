@@ -4,121 +4,131 @@
 
 A powerful, offline desktop tool to reconcile Tally/Accounting  PDF ledgers with party statements. Built for Indian businesses handling 500+ Transactions per creditors with different invoice series.
 
-> Built by **Kaushal Verma** | Real-world accounting automation | 80% time saved
+> Built by **Kaushal Verma** | Real-world accounting automation | 90% time saved
 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue?style=for-the-badge&logo=python)
 ![Platform](https://img.shields.io/badge/Platform-Windows%20EXE-green?style=for-the-badge&logo=windows)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
 
-## 🎯 Problem Solved
+---
+## 🚀 Features
 
-Manual GST reconciliation takes **3-4 hours** every month depends on data counts. Accountants match Tally and GSTR-2A invoices manually in Excel.
+### Generic Invoice Support
+- **No Hardcoded Series** - Works with ANY invoice format:
+  - `DS/24-25/0130`, `RS/24-25/2131`
+  - `SMI/CG26-27/0258`, `SMI/CG/24-25/001`
+  - `INV-001`, `INV/2024/123`, `BILL/2024/001`
+  - `TDS-1092`, `GST/24-25/001`, `2024/INV/001`
+  - Any alphanumeric with `/` or `-`
+- **500+ Creditors Ready** - One software for all parties
 
-**This tool does it in 30 seconds.**
+### Smart Accounting Logic
+- **Party Debit = Our Credit** | **Party Credit = Our Debit**
+- **Party Receipt = Our Payment** | **Party Payment = Our Receipt**
+- Bill No + Amount based matching (Primary)
+- Date Tolerance (0-60 days configurable)
+- Ignore Date Completely option
+- Cheque No vs Receipt No difference ignored (Bank entries)
+- To/By and Dr/Cr opposite logic handled
 
-## ✨ Key Features (v3.0)
+### Smart Amount Extraction
+- Handles PDFs where one line has 2 amounts (Transaction + Balance)
+- Example: `DS/24-25/0130 25,100.00 25,34,296.60 Dr` → Correctly picks `25,100.00`
 
-### 1. Optional Column Mapping - Your Choice!
-Tick only columns you want to match:
-- **2 Columns:** Only Invoice No. + Gross Total
-- **5 Columns:** Invoice + Taxable + IGST/CGST/SGST
-- **6 Columns:** Full matching
+### Beautiful UI
+- 4 Professional Themes:
+  - Light Professional
+  - Dark Modern
+  - SJ Group Blue
+  - Emerald Accounting
+- Color Coded Results:
+  - 🟢 Green = Match
+  - 🔴 Red = Only in Party
+  - 🟠 Orange = Only in Our Books
+  - 🔵 Blue = Bank Only
+- Summary Cards + Detailed Tables
 
-No more "Required columns not found" error!
+### Excel Export
+- Color-coded Excel with 4 sheets:
+  1. Summary (Opening/Closing diff)
+  2. Party Detailed
+  3. Our Books Detailed
+  4. Differences Only (Action Items)
+- Auto-saves to Desktop/SJGroup_PDF_Output
 
-### 2. Smart Column Mapping UI
-- Auto-detects header row (Row 3)
-- Auto-maps columns by name (Voucher No., IGST etc.)
-- Manual dropdown correction if auto-map fails
-- Header row adjustable (1-10)
+---
+## 📖 How to Use
 
-### 3. Numeric Fix - Formulas Work!
-Earlier amounts were saved as TEXT, SUM() failed. Now:
-- Amounts saved as **NUMERIC** with `#,##0.00` format
-- Excel formulas work perfectly
+1. **Open Software** (EXE or Python)
+2. **Select PDFs:**
+   - 1st: Party Statement PDF (e.g., Highway_Tyres.pdf)
+   - 2nd: Our Tally Ledger PDF (e.g., Starex-Highway.pdf)
+3. **Set Tolerance:**
+   - Amt Tolerance: Rs 2.00 (default)
+   - Date Tolerance: 10 days (default)
+   - Tick "Ignore Date" if dates differ a lot
+4. **Click "GENERIC RECONCILE V7"**
+5. **Check Results:**
+   - Summary cards on top
+   - Colored list + Detailed table
+   - Excel auto-saved on Desktop
 
-### 4. Standalone Windows EXE
-- Built with PyInstaller
-- No Python needed on user PC
-- Just double-click and use
-
-
-## 💻 How to Run
-
-### Option 1: Run Python Code Directly
-
-```bash
-git clone https://github.com/Kaushal88177/sj-group-reconciler.git
-cd sj-group-reconciler
-pip install -r requirements.txt
-python src/Main.py
-```
-
-### Option 2: Build EXE (Windows)
-
-```bash
-# Double-click build_exe.bat
-# OR manually:
-pyinstaller --onefile --windowed --noupx --name "SJGroup_GST_Reconciler" src/Main.py
-# EXE will be in dist/ folder
-```
-
-### Option 3: Download Ready EXE
-
-Go to **Releases** → Download `SJGroup_GST_Reconciler.exe` → Double-click to run.
-
-## 📂 Project Structure
-
-```
-sj-group-reconciler/
-├── src/
-│   └── Main.py              # Main App - 700+ lines, Optional Mapping Logic
-├── sample_data/
-│   ├── GSTR2A_Sample.xlsx   # Sample GSTR file
-│   └── Tally_Sample.xlsx    # Sample Tally file
-├── .github/workflows/
-│   └── build.yml            # Auto-builds EXE on push
-├── requirements.txt         # openpyxl, pandas
-├── build_exe.bat            # One-click EXE builder (Ordinal 380 fix)
-└── README.md
-```
-
-## 🔧 How It Works
-
-1. User selects GSTR-2A & Tally Excel files
-2. App auto-detects header row & columns
-3. User ticks which columns to use for matching (e.g., only 2 columns)
-4. Matching logic:
-   ```
-   Key = VoucherNo | GrossTotal | Taxable | IGST | CGST | SGST (only ticked fields)
-   If Key exists in both files → "Match" else "Not Matching"
-   ```
-5. Fixes numeric formatting & saves to Desktop/SJGroup_Output/
-
-## 📝 Resume Description
+---
+## 📁 Project Structure
 
 ```
-Project: SJ Group - Automated GST Reconciliation System (Python)
-- Developed desktop application using Python (Tkinter, OpenPyXL, Pandas) automating GSTR-2A vs Tally reconciliation
-- Implemented Optional Column Mapping: users can match on 2-6 columns (Invoice No., Gross, Taxable, IGST, CGST, SGST) via checkbox UI
-- Fixed numeric formatting bug (TEXT→NUMBER) enabling Excel SUM formulas, reduced manual time from 4 hrs to 30 sec (80% saved)
-- Built smart header detection & manual column mapping to handle different Tally exports, eliminating "Required columns" errors
-- Packaged as standalone Windows EXE using PyInstaller (Ordinal 380 fix with --noupx) + Auto EXE build via GitHub Actions
-- Real-world usage: STARAX Mineral Pvt Ltd, 4000+ invoices/month
-
-Tech: Python, Tkinter, OpenPyXL, Pandas, PyInstaller, GitHub Actions
-GitHub: github.com/YOUR_USERNAME/sj-group-reconciler
+.
+├── PDF-Ledger-Reconciler-V7-Generic-Any-Invoice-Series.py  # Main App
+├── Build_V7_FINAL_EXE.bat                                   # EXE Builder (BAT)
+├── build_v7_final.py                                        # EXE Builder (Python)
+├── SJGroup_V7_Generic.spec                                  # PyInstaller Spec
+├── requirements.txt                                         # Dependencies
+├── README.md                                                # This file
+└── dist/
+    └── SJGroup_Reconciler_V7_Generic.exe                   # Final EXE (after build)
 ```
+
+---
+
+## 🔧 Technical Details
+
+### Generic Invoice Extractor (V7 Core)
+```python
+def extract_invoice_generic(line):
+    # Any token with / or - and alphanumeric
+    # Length >=4, contains digit, not a date
+    # Examples: DS/24-25/0130, INV-123, BILL/2024/001
+    pattern = r"\b([A-Z0-9]{1,}(?:[/-][A-Z0-9]+){1,})\b"
+    # Filters out dates like 10-Apr-24
+```
+
+### Amount Extraction Fix
+```python
+# Line has 2 amounts: txn + balance
+# Example: "DS/24-25/0130 25,100.00 25,34,296.60 Dr"
+amounts = [25,100.00, 25,34,296.60]
+amount = min(amounts)  # Picks transaction amount
+```
+
+---
+## 📄 License
+
+MIT License - Free for commercial use
+
+---
 
 ## 👨‍💻 Author
 
-**Kaushal Verma** - Bhilai, Chhattisgarh
-- Excel Automation & GST Tools
-- This tool saves 3-4 hours every month (Depends on data Counts/Size) in real accounting work
-
-## 📄 License
-
-MIT License - Feel free to use for your business
+**Kunal Verma - SJ Group**
+- Location: Bhilai, Chhattisgarh, India
+- Use Case: Reconciling 500+ creditor ledgers from Tally PDFs
 
 ---
-⭐ **Star this repo** if it saved your time!
+
+## ⭐ Star & Support
+
+If this tool saves your time in ledger reconciliation, please star the repo!
+
+**For Issues:** Open GitHub Issue with PDF sample (remove sensitive data) and screenshot.
+
+**Made with ❤️ for Indian Accountants & Businesses**
