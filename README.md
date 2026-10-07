@@ -1,4 +1,4 @@
-# SJ Group - PDF Ledger Reconciler Pro
+# SJ Group - Excel wala
 
 ### Automated GSTR-2A vs Tally Reconciliation Tool - Python Desktop Application
 
